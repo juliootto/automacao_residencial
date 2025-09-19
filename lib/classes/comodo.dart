@@ -25,7 +25,10 @@ class Comodo {
   void adicionarInterruptor(Interruptor interruptor) {
     interruptores.add(interruptor);
   }
-
+  /// Adiciona um novo [interruptor] à lista de interruptores do cômodo.
+  void removerInterruptor(Interruptor interruptor) {
+    interruptores.remove(interruptor);
+  }
   /// Converte um objeto [Comodo] em um [Map] para serialização JSON.
   ///
   /// Retorna um [Map] contendo o nome do cômodo,

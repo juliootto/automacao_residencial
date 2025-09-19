@@ -14,15 +14,17 @@ class ComodoDetalhesScreen extends StatefulWidget {
   /// Callback para notificar que os dados foram alterados e precisam ser salvos.
   final VoidCallback onDataChanged;
 
-  const ComodoDetalhesScreen({super.key, required this.comodo, required this.onDataChanged});
-
+  const ComodoDetalhesScreen({
+    super.key,
+    required this.comodo,
+    required this.onDataChanged,
+  });
 
   @override
   State<ComodoDetalhesScreen> createState() => _ComodoDetalhesScreenState();
 }
 
 class _ComodoDetalhesScreenState extends State<ComodoDetalhesScreen> {
-
   /// Exibe um diálogo para adicionar um novo interruptor ao cômodo.
   ///
   /// O usuário pode inserir o nome e o IP do novo interruptor.
@@ -37,28 +39,39 @@ class _ComodoDetalhesScreenState extends State<ComodoDetalhesScreen> {
         title: const Text('Adicionar Novo Interruptor'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
-          children:[
+          children: [
             // Campo de texto para o nome do interruptor
             TextField(
               controller: nomeController,
               autofocus: true,
-              decoration: const InputDecoration(hintText: 'Nome do interruptor'),
+              decoration: const InputDecoration(
+                hintText: 'Nome do interruptor',
+              ),
             ),
             // Campo de texto para o IP do interruptor
             TextField(
               controller: ipController,
-              decoration: const InputDecoration(hintText: 'IP do interruptor (opcional)'),
+              decoration: const InputDecoration(
+                hintText: 'IP do interruptor (opcional)',
+              ),
             ),
           ],
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancelar')),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancelar'),
+          ),
           TextButton(
             onPressed: () {
               if (nomeController.text.isNotEmpty) {
                 setState(() {
                   widget.comodo.adicionarInterruptor(
-                    Interruptor(nome: nomeController.text, estado: false, url: ipController.text),
+                    Interruptor(
+                      nome: nomeController.text,
+                      estado: false,
+                      url: ipController.text,
+                    ),
                   );
                   widget.onDataChanged();
                 });
@@ -77,8 +90,12 @@ class _ComodoDetalhesScreenState extends State<ComodoDetalhesScreen> {
   /// O usuário pode modificar o nome e o IP do interruptor.
   /// As alterações são salvas no objeto [Interruptor] e os dados são persistidos.
   void _mostrarDialogoEditarInterruptor(Interruptor interruptor) {
-    final TextEditingController nomeController = TextEditingController(text: interruptor.nome);
-    final TextEditingController ipController = TextEditingController(text: interruptor.url);
+    final TextEditingController nomeController = TextEditingController(
+      text: interruptor.nome,
+    );
+    final TextEditingController ipController = TextEditingController(
+      text: interruptor.url,
+    );
 
     showDialog(
       context: context,
@@ -86,7 +103,7 @@ class _ComodoDetalhesScreenState extends State<ComodoDetalhesScreen> {
         title: const Text('Editar Interruptor'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
-          children:[
+          children: [
             // Campo de texto para o novo nome do interruptor
             TextField(
               controller: nomeController,
@@ -101,7 +118,10 @@ class _ComodoDetalhesScreenState extends State<ComodoDetalhesScreen> {
           ],
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancelar')),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancelar'),
+          ),
           TextButton(
             onPressed: () {
               if (nomeController.text.isNotEmpty) {
@@ -121,6 +141,32 @@ class _ComodoDetalhesScreenState extends State<ComodoDetalhesScreen> {
     );
   }
 
+  void _mostrarDialogoDeletarInterruptor(Interruptor interruptor) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Deletar Interruptor?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                // Aqui, estamos alterando o nome do objeto interruptor existente
+                widget.comodo.removerInterruptor(interruptor);
+                widget.onDataChanged();
+              });
+
+              Navigator.pop(context);
+            },
+            child: const Text('Salvar'),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +177,11 @@ class _ComodoDetalhesScreenState extends State<ComodoDetalhesScreen> {
       ),
       body: widget.comodo.interruptores.isEmpty
           ? const Center(
-              child: Text('Nenhum interruptor adicionado.\nClique no "+" para adicionar um.', textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: Colors.grey)),
+              child: Text(
+                'Nenhum interruptor adicionado.\nClique no "+" para adicionar um.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
             )
           : ListView.builder(
               itemCount: widget.comodo.interruptores.length,
@@ -140,9 +190,11 @@ class _ComodoDetalhesScreenState extends State<ComodoDetalhesScreen> {
                 return InterruptorTile(
                   interruptor: interruptor,
                   onEdit: () => _mostrarDialogoEditarInterruptor(interruptor),
+                  onDelete: () =>
+                      _mostrarDialogoDeletarInterruptor(interruptor),
                 );
               },
-      ),
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: _mostrarDialogoAdicionarInterruptor,
         tooltip: 'Adicionar Interruptor',

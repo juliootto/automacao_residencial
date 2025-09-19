@@ -9,12 +9,14 @@ class InterruptorTile extends StatefulWidget {
   ///
   /// Permite que o widget pai reaja à intenção do usuário de editar o interruptor.
   final VoidCallback onEdit;
+  final VoidCallback onDelete;
 
   const InterruptorTile({
     /// Chave para identificar este widget.
     super.key,
     required this.interruptor,
     required this.onEdit,
+    required this.onDelete,
   });
 
   @override
@@ -38,36 +40,50 @@ class _InterruptorTileState extends State<InterruptorTile> {
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       // Um ListTile é ideal para exibir um item em uma lista com título, ícone e ações.
       child: ListTile(
-        // Ícone principal que muda de aparência dependendo do estado do interruptor.
-        leading: Icon(
-          _estaLigado ? Icons.lightbulb : Icons.lightbulb_outline,
-          color: _estaLigado ? Colors.amber : Colors.grey,
-          size: 30,
+        // O Switch permite ao usuário alternar o estado do interruptor.
+        leading: Switch(
+          value: _estaLigado,
+          onChanged: (novoEstado) {
+            // Atualiza o estado local e o objeto Interruptor quando o switch é alterado.
+            setState(() {
+              _estaLigado = novoEstado;
+              // Persiste a mudança de estado no objeto Interruptor.
+              widget.interruptor.estado = novoEstado;
+            });
+            // TODO: Adicionar lógica para enviar comando via URL, se necessário
+            // Esta é uma área para futura implementação de comunicação com hardware.
+          },
         ),
         // Título do ListTile, exibindo o nome do interruptor.
-        title: Text(widget.interruptor.nome, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Row(
+          children: [
+            Text(
+              widget.interruptor.nome,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(width: 10),
+            Icon(
+              _estaLigado ? Icons.lightbulb : Icons.lightbulb_outline,
+              color: _estaLigado ? Colors.amber : Colors.grey,
+              size: 30,
+            ),
+          ],
+        ),
         // trailing: Contém widgets que aparecem no final do ListTile, como o Switch e o botão de edição.
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // O Switch permite ao usuário alternar o estado do interruptor.
-            Switch(
-              value: _estaLigado,
-              onChanged: (novoEstado) {
-                // Atualiza o estado local e o objeto Interruptor quando o switch é alterado.
-                setState(() {
-                  _estaLigado = novoEstado;
-                  // Persiste a mudança de estado no objeto Interruptor.
-                  widget.interruptor.estado = novoEstado;
-                });
-                // TODO: Adicionar lógica para enviar comando via URL, se necessário
-                // Esta é uma área para futura implementação de comunicação com hardware.
-              },
-            ),
+            // Ícone principal que muda de aparência dependendo do estado do interruptor.
+
             // Botão de ícone para iniciar a edição do interruptor.
             IconButton(
               icon: const Icon(Icons.edit_outlined),
               onPressed: widget.onEdit, // Chama a função passada pelo pai
+            ),
+
+            IconButton(
+              icon: const Icon(Icons.delete_outlined),
+              onPressed: widget.onDelete, // Chama a função passada pelo pai
             ),
           ],
         ),

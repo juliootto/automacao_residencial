@@ -12,7 +12,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Define o esquema de cores da aplicação, usando uma semente de cor.
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 182, 191, 233),
+          seedColor: const Color.fromARGB(255, 14, 37, 141),
         ),
       ),
       home: const MyHomePage(title: 'Automação Residencial'),
