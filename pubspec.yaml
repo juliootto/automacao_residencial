@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   http:
   shared_preferences:
+  flutter_launcher_icons: 
 
 
 dev_dependencies:
@@ -21,3 +22,13 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+
+# Adicione esta seção inteira no final do arquivo
+flutter_launcher_icons:
+  # Configurações para Android
+  android: "launcher_icon"
+  # Configurações para iOS
+  ios: true
+  # Caminho para a sua imagem de ícone
+  image_path: "assets/icon/icon.png"

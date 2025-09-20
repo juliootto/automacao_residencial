@@ -1,5 +1,6 @@
 import 'package:automacao_residencial/classes/interruptor.dart';
 import 'package:flutter/material.dart';
+import 'package:automacao_residencial/utils/icon_mapper.dart'; 
 /// Representa um Cômodo onde pode ser adicionado interruptores.
 ///
 
@@ -42,7 +43,6 @@ class Comodo {
       'interruptores': interruptores.map((i) => i.toJson()).toList(),
       // Armazenamos o código do ícone, que é um int
       'icone_codePoint': icone.codePoint,
-      'icone_fontFamily': icone.fontFamily,
     };
   }
 
@@ -58,10 +58,7 @@ class Comodo {
 
     return Comodo(
       nome: json['nome'],
-      icone: IconData(
-        json['icone_codePoint'],
-        fontFamily: json['icone_fontFamily'],
-      ),
+      icone: getIconFromCodePoint(json['icone_codePoint']),
     )..interruptores = listaDeInterruptores; // Atribui a lista de interruptores reconstruída
   }
 }
