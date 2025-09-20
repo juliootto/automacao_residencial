@@ -1,3 +1,4 @@
+
 import 'package:automacao_residencial/classes/comodo.dart';
 import 'package:flutter/material.dart';
 
@@ -20,10 +21,27 @@ class Casa {
     comodos.add(Comodo(nome:nome,icone:icone));
   }
 
+  /// Remove um [comodo] específico da lista de cômodos da casa.
   void removerComodo(Comodo comodo) {
     comodos.remove(comodo);  
   }
 
+  /// Altera as propriedades de um cômodo existente na casa.
+  ///
+  /// Procura o [comodoAntigo] na lista e, se encontrado, atualiza seu
+  /// [novoNome] e [novoIcone].
+  ///
+  /// [comodoAntigo] O cômodo a ser alterado.
+  /// [novoNome] O novo nome para o cômodo.
+  /// [novoIcone] O novo ícone para o cômodo.
+  void alterarComodo(Comodo comodoAntigo, String novoNome, IconData novoIcone) {
+    final index = comodos.indexOf(comodoAntigo);
+    if (index != -1) {
+      // Atualiza o nome e o ícone do cômodo na posição encontrada.
+      comodos[index].nome = novoNome;
+      comodos[index].icone = novoIcone;
+    }
+  }
   void moverComodo(Comodo comodo, int novaPosicao) {
     if (comodos.contains(comodo)) {
       comodos.remove(comodo);

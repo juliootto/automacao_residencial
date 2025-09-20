@@ -1,50 +1,73 @@
-# 📱 Automação Residencial com Flutter
+# Automação Residencial 🏡
 
-Um aplicativo em Flutter para controlar dispositivos de automação residencial de forma simples e intuitiva. Gerencie luzes, tomadas e muito mais, tudo a partir do seu smartphone.
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
 
-## ✨ Funcionalidades Planejadas
+Um aplicativo de automação residencial desenvolvido em Flutter para controlar múltiplos cômodos e dispositivos de forma simples e intuitiva. O projeto demonstra conceitos chave do Flutter, como gerenciamento de estado, persistência de dados local e consumo de APIs.
 
-Abaixo estão algumas das funcionalidades planejadas para este projeto.
+## ✨ Funcionalidades
 
-- [ ] Controle de iluminação (ligar/desligar).
-- [ ] Gerenciamento de tomadas inteligentes.
-- [ ] Notificações em tempo real sobre o status dos dispositivos.
+-   **Gerenciamento de Cômodos:**
+    -   Adicionar novos cômodos com nome e ícone personalizados.
+    -   Editar as informações de cômodos existentes.
+    -   Remover os cômodos que não são mais necessários.
+-   **Controle de Dispositivos (Interruptores):**
+    -   Adicionar múltiplos interruptores a cada cômodo.
+    -   Ligar e desligar os interruptores individualmente.
+    -   Editar o nome e configuração de cada interruptor.
+-   **Persistência de Dados:**
+    -   Todo o layout da casa (cômodos e estado dos interruptores) é salvo localmente.
+    -   Ao fechar e reabrir o aplicativo, sua configuração é restaurada automaticamente.
+-   **Comunicação com Hardware (Próximo Passo):**
+    -   A estrutura está pronta para que cada interruptor envie requisições HTTP para controlar dispositivos reais (como ESP8266).
 
-## 🚀 Começando
+## 🚀 Tecnologias Utilizadas
 
-Siga estas instruções para obter uma cópia do projeto em execução na sua máquina local para fins de desenvolvimento e teste.
+-   **Framework:** [Flutter](https://flutter.dev/)
+-   **Linguagem:** [Dart](https://dart.dev/)
 
-### Pré-requisitos
+## 📂 Estrutura do Projeto
 
-O que você precisa para instalar o software:
+O projeto segue uma arquitetura modular para facilitar a manutenção e escalabilidade.
 
-*   [Flutter SDK](https://flutter.dev/docs/get-started/install)
-*   Um editor de código como [VS Code](https://code.visualstudio.com/) ou [Android Studio](https://developer.android.com/studio).
+-   **`main.dart`**: Ponto de entrada da aplicação e tela principal (`MyHomePage`).
+-   **`screens/`**: Contém as telas principais da aplicação.
+    -   `comodo_detalhes_screen.dart`: Tela que exibe os interruptores de um cômodo específico.
+-   **`widgets/`**: Contém os widgets reutilizáveis.
+    -   `grid_comodos.dart`: A grade que exibe todos os cômodos na tela inicial.
+    -   `card_comodo.dart`: O widget individual para cada cômodo na grade.
+    -   `interruptor_tile.dart`: O widget para cada interruptor na tela de detalhes.
+-   **`classes/`**: Contém as classes e modelos da aplicação.
+    -   `casa.dart`: Representa a casa, contendo uma lista de cômodos.
+    -   `comodo.dart`: Representa um cômodo, com nome, ícone e lista de interruptores.
+    -   `interruptor.dart`: Representa um dispositivo, com nome, estado (ligado/desligado) e URL para o comando.
+-   **`services/`**:
+    -   `persistence_service.dart`: Isola a lógica de salvar e carregar os dados da casa usando `shared_preferences`.
 
-### Instalação
+## 🏁 Como Executar o Projeto
 
-Um passo a passo que informa como obter um ambiente de desenvolvimento em execução.
-
-1.  Clone o repositório (substitua `seu-usuario` pelo seu nome de usuário do GitHub):
+1.  **Clone este repositório:**
     ```sh
-    git clone https://github.com/seu-usuario/automacao_residencial.git
+    git clone https://github.com/juliootto/automacao_residencial.git
     ```
-2.  Navegue até o diretório do projeto:
+2.  **Entre no diretório do projeto:**
     ```sh
-    cd automacao_residencial
+    cd automacao-residencial
     ```
-3.  Instale as dependências do Dart/Flutter:
+3.  **Instale as dependências:**
     ```sh
     flutter pub get
     ```
-4.  Execute o aplicativo:
+4.  **Execute o aplicativo:**
     ```sh
     flutter run
     ```
 
-## 🛠️ Construído com
+## 🔮 Próximos Passos
 
-*   Flutter - O framework de UI do Google para criar belas aplicações, compiladas nativamente, para mobile, web e desktop a partir de uma única base de código.
-*   Dart - A linguagem de programação usada pelo Flutter.
+-   [ ] Adicionar animações para uma experiência de usuário mais fluida.
+-   [ ] Implementar um backend (como Firebase) para sincronizar a casa entre múltiplos dispositivos.
 
+---
 
+*Este projeto foi desenvolvido por Julio Otto como um exercício prático em Flutter.*

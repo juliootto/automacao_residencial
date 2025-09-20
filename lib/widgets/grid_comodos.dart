@@ -1,4 +1,5 @@
 import 'package:automacao_residencial/classes/casa.dart';
+import 'package:automacao_residencial/classes/comodo.dart';
 import 'package:automacao_residencial/screens/comodo_detalhes_screen.dart'; // Importe a nova tela
 import 'package:automacao_residencial/widgets/card_comodo.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +10,24 @@ import 'package:flutter/material.dart';
 /// e exibe uma mensagem se não houver cômodos adicionados.
 class GridComodos extends StatelessWidget {
   /// Construtor para [GridComodos].
-  const GridComodos({super.key, required this.casa,required this.onDataChanged,});
+  const GridComodos({
+    super.key,
+    required this.casa,
+    required this.onDataChanged,
+    required this.onComodoRemoved, required this.onComodoEdit,
+  });
 
-  final Casa casa; /// A instância da casa contendo a lista de cômodos.
-  final VoidCallback onDataChanged; /// Callback para notificar mudanças nos dados.
+  final Casa casa;
+  /// A instância da casa contendo a lista de cômodos.
+  final VoidCallback onDataChanged;
+  /// Callback para notificar mudanças nos dados.
+  ///
+  /// Este callback é invocado quando alguma alteração nos dados da casa ocorre,
+  /// permitindo que o widget pai reaja e, por exemplo, salve os dados.
+  ///
+  /// Callback para notificar mudanças nos dados.
+  final void Function(Comodo) onComodoRemoved; // 2. Define o tipo da função
+  final void Function(Comodo) onComodoEdit; // 2. Define o tipo da função
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +50,12 @@ class GridComodos extends StatelessWidget {
         crossAxisCount: 2, // Dois itens por linha
         crossAxisSpacing: 16, // Espaçamento horizontal entre os cartões
         mainAxisSpacing: 16, // Espaçamento vertical entre os cartões
-        childAspectRatio: 1.8, // Proporção da largura pela altura de cada cartão
+        childAspectRatio:
+            1.8, // Proporção da largura pela altura de cada cartão
       ),
       padding: const EdgeInsets.all(16), // Preenchimento em torno da grade
-      itemCount: casa.comodos.length, // Número total de cômodos a serem exibidos
+      itemCount:
+          casa.comodos.length, // Número total de cômodos a serem exibidos
       itemBuilder: (context, index) {
         final comodo = casa.comodos[index];
         // GestureDetector para tornar o CardComodo clicável.
@@ -48,10 +65,17 @@ class GridComodos extends StatelessWidget {
             context,
             MaterialPageRoute(
               // Navega para a tela de detalhes, passando o cômodo clicado
-              builder: (_) => ComodoDetalhesScreen(comodo: comodo,onDataChanged: onDataChanged,),
+              builder: (_) => ComodoDetalhesScreen(
+                comodo: comodo,
+                onDataChanged: onDataChanged,
+              ),
             ),
           ),
-          child: CardComodo(comodo: comodo),
+          child: CardComodo(
+            comodo: comodo,
+            onEdit:() => onComodoEdit(comodo),
+            onDelete: () => onComodoRemoved(comodo),
+          ),
         );
       },
     );
