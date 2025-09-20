@@ -18,7 +18,7 @@ Um aplicativo de automação residencial desenvolvido em Flutter para controlar 
 -   **Persistência de Dados:**
     -   Todo o layout da casa (cômodos e estado dos interruptores) é salvo localmente.
     -   Ao fechar e reabrir o aplicativo, sua configuração é restaurada automaticamente.
--   **Comunicação com Hardware (Próximo Passo):**
+-   **Comunicação com Hardware:**
     -   A estrutura está pronta para que cada interruptor envie requisições HTTP para controlar dispositivos reais (como ESP8266).
 
 ## 🚀 Tecnologias Utilizadas
