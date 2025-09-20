@@ -77,11 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // Lista de ícones que o usuário pode escolher
     final List<IconData> iconesDisponiveis = [
-      Icons.bed,
-      Icons.home,
-      Icons.room,
-      Icons.room_service,
-      Icons.king_bed_outlined,
+      
+      Icons.home_outlined,
+      Icons.bed_outlined,
+      Icons.room_outlined,
+      Icons.room_service_outlined,
+      Icons.dining_outlined,
       Icons.kitchen_outlined,
       Icons.living_outlined,
       Icons.bathtub_outlined,

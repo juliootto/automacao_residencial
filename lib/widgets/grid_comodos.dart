@@ -35,7 +35,7 @@ class GridComodos extends StatelessWidget {
         crossAxisCount: 2, // Dois itens por linha
         crossAxisSpacing: 16, // Espaçamento horizontal entre os cartões
         mainAxisSpacing: 16, // Espaçamento vertical entre os cartões
-        childAspectRatio: 1.5, // Proporção da largura pela altura de cada cartão
+        childAspectRatio: 1.8, // Proporção da largura pela altura de cada cartão
       ),
       padding: const EdgeInsets.all(16), // Preenchimento em torno da grade
       itemCount: casa.comodos.length, // Número total de cômodos a serem exibidos

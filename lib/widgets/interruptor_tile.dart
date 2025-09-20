@@ -25,14 +25,19 @@ class InterruptorTile extends StatefulWidget {
 
 class _InterruptorTileState extends State<InterruptorTile> {
   /// Estado local para controlar visualmente o estado do switch (ligado/desligado).
-  late bool _estaLigado;
+  late bool _estaLigado = false;
 
   @override
-  void initState() {
+  void initState()  {
     super.initState();
     // Inicializa o estado local com o estado atual do interruptor.
-    _estaLigado = widget.interruptor.estado;
-  }
+     widget.interruptor.atualizaEstado().then((valorEstado){
+      setState(() {
+        _estaLigado = valorEstado;
+      });
+     });
+     }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +50,12 @@ class _InterruptorTileState extends State<InterruptorTile> {
           value: _estaLigado,
           onChanged: (novoEstado) {
             // Atualiza o estado local e o objeto Interruptor quando o switch é alterado.
-            setState(() {
-              _estaLigado = novoEstado;
+            setState(()  {
+              widget.interruptor.mudaInterruptor().then((onValue){
+                _estaLigado = onValue;
+              });
               // Persiste a mudança de estado no objeto Interruptor.
-              widget.interruptor.estado = novoEstado;
             });
-            // TODO: Adicionar lógica para enviar comando via URL, se necessário
-            // Esta é uma área para futura implementação de comunicação com hardware.
           },
         ),
         // Título do ListTile, exibindo o nome do interruptor.
