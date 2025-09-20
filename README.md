@@ -21,6 +21,16 @@ Um aplicativo de automação residencial desenvolvido em Flutter para controlar 
 -   **Comunicação com Hardware:**
     -   A estrutura está pronta para que cada interruptor envie requisições HTTP para controlar dispositivos reais (como ESP8266).
 
+## 📸 Telas
+
+| Tela Inicial | Adicionar Cômodo |
+|:---:|:---:|
+| <img src="imagens/01_TelaInicial.png" alt="Tela Inicial Vazia" width="250"> | <img src="imagens/02_AdicionarComodo.png" alt="Diálogo para adicionar um novo cômodo" width="250"> |
+| **Tela Inicial (Preenchida)** | **Cômodo Vazio** |
+| <img src="imagens/03_TelaInicialPreenchida.png" alt="Tela Inicial com vários cômodos" width="250"> | <img src="imagens/04_ComodoVazio.png" alt="Tela de detalhes de um cômodo sem interruptores" width="250"> |
+| **Adicionar Interruptor** | **Cômodo com Interruptores** |
+| <img src="imagens/05_AdicionarInterruptor.png" alt="Diálogo para adicionar um novo interruptor" width="250"> | <img src="imagens/06_ComodoComInterruptores.png" alt="Tela de detalhes de um cômodo com interruptores" width="250"> |
+
 ## 🚀 Tecnologias Utilizadas
 
 -   **Framework:** [Flutter](https://flutter.dev/)
