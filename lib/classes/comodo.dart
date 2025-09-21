@@ -5,19 +5,12 @@ import 'package:automacao_residencial/utils/icon_mapper.dart';
 ///
 
 class Comodo {
-  /// O nome do cômodo (ex: "Sala", "Quarto").
-  String nome;
-
-  /// Uma lista de interruptores associados a este cômodo.
-  List<Interruptor> interruptores = [];
-
-  /// O ícone que representa visualmente o cômodo.
-  IconData icone;
+  
+  String nome;                              /// O nome do cômodo (ex: "Sala", "Quarto").  
+  List<Interruptor> interruptores = [];     /// Uma lista de interruptores associados a este cômodo.  
+  IconData icone;                           /// O ícone que representa visualmente o cômodo.
   
   /// Construtor para criar uma instância de [Comodo].
-  ///
-  /// [nome] é o nome de exibição do cômodo.
-  /// [icone] é o ícone que representa o cômodo (padrão: [Icons.home]).
   Comodo({
     required this.nome , this.icone = Icons.home,
   });
