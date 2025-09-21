@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:automacao_residencial/classes/comodo.dart';
 import 'package:automacao_residencial/classes/interruptor.dart';
 import 'package:automacao_residencial/widgets/interruptor_tile.dart';
@@ -24,7 +26,70 @@ class ComodoDetalhesScreen extends StatefulWidget {
   State<ComodoDetalhesScreen> createState() => _ComodoDetalhesScreenState();
 }
 
-class _ComodoDetalhesScreenState extends State<ComodoDetalhesScreen> {
+class _ComodoDetalhesScreenState extends State<ComodoDetalhesScreen>  with WidgetsBindingObserver { 
+   Timer? _pollingTimer; // Variável para controlar o Timer
+    @override
+  void initState() {
+    super.initState();
+    // 2. Registra esta classe como um "ouvinte" do ciclo de vida
+    WidgetsBinding.instance.addObserver(this);
+    // Inicia o polling pela primeira vez
+    _startPolling();
+  }
+
+  // 3. Este método é chamado sempre que o estado do app muda (ex: vai para segundo plano)
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      // O app foi para segundo plano: para o polling
+      //print("App em segundo plano, parando o polling.");
+      _stopPolling();
+    } else if (state == AppLifecycleState.resumed) {
+      // O app voltou para o primeiro plano: retoma o polling
+      //print("App em primeiro plano, retomando o polling.");
+      _startPolling();
+    }
+  }
+
+  void _startPolling() {
+    // Garante que não haja timers duplicados rodando
+    _pollingTimer?.cancel();
+    // Cria um Timer que executa a função a cada 0,3 segundos
+    _pollingTimer = Timer.periodic(const Duration(milliseconds: 400), (_) {
+      //print("Polling... Verificando status dos interruptores."); // Para depuração
+      _atualizarStatusDeTodosInterruptores();
+    });
+  }
+
+  void _stopPolling() {
+    _pollingTimer?.cancel();
+  }
+
+  Future<void> _atualizarStatusDeTodosInterruptores() async {
+    // Percorre cada interruptor e busca seu estado atual
+    for (var interruptor in widget.comodo.interruptores) {
+      try {
+        
+        bool novoEstado = await interruptor.atualizaEstado();
+        
+          setState(() {
+            interruptor.estado = novoEstado;
+           // widget.onDataChanged();
+          });
+        
+      } catch (e) {
+        //print('Erro ao atualizar status do ${interruptor.nome}: $e');
+        // Opcional: tratar o erro, talvez mostrando um ícone de "offline"
+      }
+    }
+  }
+ @override
+  void dispose() {
+    // ESSENCIAL: Cancela o Timer quando a tela é fechada para evitar vazamento de memória
+    _pollingTimer?.cancel();
+    super.dispose();
+  }
   /// Exibe um diálogo para adicionar um novo interruptor ao cômodo.
   ///
   /// O usuário pode inserir o nome e o IP do novo interruptor.

@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
-// 1. Crie o mapa com todos os ícones que você disponibiliza para o usuário
+/// Mapa que associa o `codePoint` de um ícone à sua instância `IconData` constante.
+///
+/// Usado para converter o ícone salvo localmente (como um número inteiro) de volta
+/// para um objeto `IconData` que o Flutter pode renderizar,
+/// garantindo a compatibilidade com a otimização de "tree shaking".
 final Map<int, IconData> iconMap = {
-  // Mapeia o codePoint de cada ícone para sua instância constante
-  Icons.king_bed_outlined.codePoint: Icons.king_bed_outlined,
+  Icons.home_outlined.codePoint: Icons.home_outlined,
+  Icons.bed_outlined.codePoint: Icons.bed_outlined,
+  Icons.room_outlined.codePoint: Icons.room_outlined,
+  Icons.room_service_outlined.codePoint: Icons.room_service_outlined,
+  Icons.dining_outlined.codePoint: Icons.dining_outlined,
   Icons.kitchen_outlined.codePoint: Icons.kitchen_outlined,
   Icons.living_outlined.codePoint: Icons.living_outlined,
   Icons.bathtub_outlined.codePoint: Icons.bathtub_outlined,
@@ -12,12 +19,12 @@ final Map<int, IconData> iconMap = {
   Icons.balcony_outlined.codePoint: Icons.balcony_outlined,
   Icons.local_laundry_service_outlined.codePoint: Icons.local_laundry_service_outlined,
   Icons.chair_outlined.codePoint: Icons.chair_outlined,
-  Icons.home.codePoint: Icons.home, // Adicione um ícone padrão
-  // 'iconesDisponiveis'
 };
 
-
+/// Obtém a instância `IconData` correspondente a um `codePoint`.
+///
+/// Se o `codePoint` não for encontrado no mapa, retorna um ícone padrão
+/// (`Icons.home_outlined`) para evitar erros.
 IconData getIconFromCodePoint(int codePoint) {
-  // Procura o ícone no mapa. Se não encontrar, retorna um ícone padrão.
-  return iconMap[codePoint] ?? Icons.home;
+  return iconMap[codePoint] ?? Icons.home_outlined;
 }
