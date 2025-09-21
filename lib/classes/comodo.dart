@@ -62,3 +62,4 @@ class Comodo {
     )..interruptores = listaDeInterruptores; // Atribui a lista de interruptores reconstruída
   }
 }
+
