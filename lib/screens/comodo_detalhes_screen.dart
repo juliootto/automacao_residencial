@@ -222,6 +222,11 @@ class _ComodoDetalhesScreenState extends State<ComodoDetalhesScreen>  with Widge
                 // Aqui, estamos alterando o nome do objeto interruptor existente
                 widget.comodo.removerInterruptor(interruptor);
                 widget.onDataChanged();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('"${interruptor.nome}" foi removido.'),
+                    backgroundColor: Colors.red,
+                  ));
               });
 
               Navigator.pop(context);
